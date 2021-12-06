@@ -1,0 +1,9 @@
+.navbar-brand img{
+   border-radius: 5%;
+}
+.navbar{
+  background: url('../../../assets/images/banner.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
