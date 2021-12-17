@@ -31,8 +31,7 @@ class UserController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('SELECT * FROM users WHERE id = ?', [id], function (err, result, fields) {
-                console.log('SELECT * FROM users WHERE id = ?', [id]);
+            yield database_1.default.query('SELECT * FROM users INNER JOIN users_info on id = id_user WHERE id = ?', [id], function (err, result, fields) {
                 if (err)
                     throw err;
                 if (result.length > 0) {
@@ -46,10 +45,25 @@ class UserController {
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             req.body.password = yield bcryptjs_1.default.hash(req.body.password, 8); //Encriptando la contraseña
-            yield database_1.default.query('INSERT INTO users set ?', [req.body], function (err, result, fields) {
-                if (err)
-                    throw err;
-                res.json({ message: 'Usario registrado', id: result.insertId });
+            if (req.body.urlimg == undefined) {
+                req.body.urlimg = "";
+            }
+            yield database_1.default.query('INSERT INTO users (email,password) VALUES ("' + req.body.email + '","' + req.body.password + '");', function (err, result, fields) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    if (err)
+                        throw err;
+                    yield database_1.default.query('INSERT INTO users_info (id_user,name,second_name,third_name,birth,urlimg) VALUES ("' + result.insertId + '","' + req.body.name + '","' + req.body.second_name + '","' + req.body.third_name + '","' + req.body.birth + '","' + req.body.urlimg + '");', function (err, result, fields) {
+                        return __awaiter(this, void 0, void 0, function* () {
+                            if (err)
+                                throw err;
+                            yield database_1.default.query('SELECT * FROM users WHERE email = ? ', [req.body.email], function (err, result, fields) {
+                                return __awaiter(this, void 0, void 0, function* () {
+                                    return res.json(result[0]);
+                                });
+                            });
+                        });
+                    });
+                });
             });
         });
     }

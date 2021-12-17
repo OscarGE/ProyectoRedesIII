@@ -1,0 +1,35 @@
+/* mensaje de error indicando campo mal ingresado  */
+  .msjErr{
+    display: block;
+    margin: 0px;
+    font-size: 12px;
+    background-color: #FF9494;
+    color: #FFFFFF;
+    padding: 1px;
+    text-align: center;
+  }
+  /* previsualizacón de foto de perfil */
+  .perfil{
+      width:100px;
+      height:100px;
+      border-radius:160px;
+      object-fit: cover;
+      border:1px solid #666;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 0 5px -1px rgb(54, 54, 54);
+  }
+  .perfil:active{
+    transform: scale(0.9);
+  }
+  .fileinput{
+    display: none;
+  }
+  button:active{
+    transform: scale(0.9);
+  }
+  .encabezado{
+    background-color: #dc3545;
+    color: #FFFFFF;
+    padding: 5px;
+  }

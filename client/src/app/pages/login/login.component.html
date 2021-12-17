@@ -1,0 +1,59 @@
+<br><br><br>
+<div class="container h-100 mt-5">
+    <div class="row align-items-center h-100">
+        <div class="col text-center">
+            <img src="../../../assets/images/logo.png" alt="logo" width="400" class="d-inline-block align-text-top">   
+        </div>
+        <div class="col d-flex justify-content-center">
+            <div class="card text-center" style="width: 30rem;">
+                <div class="card-body">
+                    <div class="encabezado">
+                        <h2>Bienvenido</h2>
+                        <h5>Inicia sesión para continuar</h5>
+                    </div>
+                    <form [formGroup]="form" (ngSubmit)="sendlogin($event)">
+                    <br>
+                    <div class="mb-3 form-floating">
+                        <input type="email" class="form-control" name="email" formControlName="email" placeholder="e-mail">
+                        <label for="floatingPassword" style="color: #AEB6BF">e-mail</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                        <div *ngIf="form.get('email')!.errors && form.get('email')!.touched">
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('required')">
+                            <i class="fas fa-times-circle"></i> Este campo es requerido
+                        </p>
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('pattern')">
+                            <i class="fas fa-times-circle"></i> Este campo no acepta espacios
+                        </p>
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('email')">
+                            <i class="fas fa-times-circle"></i> No es un email valido
+                        </p>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="password" class="form-control" name="password" formControlName="password"
+                        placeholder="Contraseña">
+                        <label for="floatingPassword" style="color: #AEB6BF">Contraseña</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                        <div *ngIf="form.get('password')!.errors && form.get('password')!.touched">
+                        <p class="msjErr" *ngIf="form.get('password')!.hasError('required')">
+                            <i class="fas fa-times-circle"></i> Este campo es requerido
+                        </p>
+                        <p class="msjErr" *ngIf="form.get('password')!.hasError('pattern')">
+                            <i class="fas fa-times-circle"></i> Este campo no acepta espacios
+                        </p>
+                        </div>
+                    </div>
+                    <div *ngIf="msjErr != '' ">
+                        <p class="msjErr2"><i class="fas fa-times-circle"></i> {{ msjErr }}</p>
+                    </div>
+                    <input type="submit" [disabled]="form.invalid"  class="btn btn-primary btn-lg"value="Entrar">
+                    </form>
+                    <hr>
+                    <h5>¿Aún no tienes una cuenta?</h5>
+                     <br>
+                    <button type="button" class="btn btn-success btn-lg" routerLink="../registeruser" routerLinkActive="active">Crear una cuenta nueva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

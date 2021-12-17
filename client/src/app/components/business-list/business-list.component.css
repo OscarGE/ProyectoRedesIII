@@ -1,0 +1,59 @@
+ .perfil{
+      width:60px;
+      height:60px;
+      border-radius:160px;
+      object-fit: cover;
+      border:1px solid #666;
+      user-select: none;
+  }
+   .img-thumbnail{
+      width:200px;
+      border-radius:10px;
+      object-fit: cover;
+      border:1px solid #666;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 0 1px -1px rgb(54, 54, 54);
+  }
+  .pName{
+      margin: 0px;
+      padding: 0px;
+      text-align: left;
+      font-size: 18px;
+  }
+  .fa-plus{
+      font-size:10px;
+  }
+  button{
+      font-size: 14px;
+  }
+  button:active{
+    transform: scale(0.9);
+  }
+  .fullname{
+     font-size: 18px;
+     font-weight: bold;
+     color: #838890;
+  }
+  .name{
+    font-size: 20px;
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+  .description{
+    font-size: 15px;
+    font-weight: normal;
+  }
+  .category{
+    font-weight: normal;
+    background-color: #fd7e14;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 6px;
+    margin: 0px;
+  }
+  .registered{
+    color: #5b5e65;
+    font-weight: normal;
+    font-style: italic;
+  }

@@ -1,0 +1,26 @@
+/* mensaje de error indicando campo mal ingresado  */
+  .msjErr{
+    display: block;
+    margin: 0px;
+    font-size: 12px;
+    background-color: #FF9494;
+    color: #FFFFFF;
+    padding: 1px;
+    text-align: center;
+  }
+  .msjErr2{
+    display: block;
+    font-size: 16px;
+    background-color: #FF9494;
+    color: #FFFFFF;
+    padding: 1px 5px;
+    text-align: center;
+  }
+  button:active{
+    transform: scale(0.9);
+  }
+  .encabezado{
+    background-color: #dc3545;
+    color: #FFFFFF;
+    padding: 5px;
+  }

@@ -8,6 +8,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 // import path from 'path';
 const usersRoutes_1 = __importDefault(require("./routes/usersRoutes"));
+const businessRoutes_1 = __importDefault(require("./routes/businessRoutes"));
 class MyServer {
     constructor() {
         this.app = (0, express_1.default)(); //Se ejecuta el servidor con la función express()
@@ -26,6 +27,7 @@ class MyServer {
     routes() {
         // this.app.use('/api',indexRoutes)
         this.app.use('/api/users', usersRoutes_1.default); //ruta para trabajar con la tabla usrs de la base de datos
+        this.app.use('/api/business', businessRoutes_1.default); //ruta para trabajar con la tabla business de la base de datos
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

@@ -1,0 +1,26 @@
+ .perfil{
+      width:100px;
+      height:100px;
+      border-radius:160px;
+      object-fit: cover;
+      border:1px solid #666;
+      user-select: none;
+  }
+  .pName{
+      margin: 0px;
+      padding: 0px;
+      text-align: left;
+      font-size: 18px;
+  }
+  .fa-plus , .fa-eye{
+      font-size:10px;
+  }
+  button{
+      font-size: 18px;
+  }
+  button:active{
+    transform: scale(0.9);
+  }
+  .emial{
+      font-size: 18px;
+  }

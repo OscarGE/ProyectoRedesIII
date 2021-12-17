@@ -1,0 +1,41 @@
+<div class="card text-center">
+  <div class="card-header emial" >
+    <i class="fas fa-user-tie"></i> {{user?.email}}
+  </div>
+  <div class="card-body mt-1 mb-1 p-0">
+    <div class="row ">
+      <div class="col-5 col-sm-5 col-md-5 col-lg-5 ">
+        <div *ngIf="user?.urlimg==''; else imagenDefault" >
+           <img src="../../../assets/images/default-user-image.png" class="img-fluid perfil ms-1">
+        </div>
+        <ng-template #imagenDefault>
+           <img [src]="user?.urlimg" class="img-fluid perfil ms-1">
+        </ng-template>
+      </div>
+      <div class="col-7 col-sm-7 col-md-7 col-lg-7">
+        <p class="pName">{{user?.name}}</p>
+        <p class="pName">{{user?.second_name}}</p>
+        <p class="pName">{{user?.third_name}}</p>
+      </div>
+    </div>
+    <div class="row ">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <i class="fas fa-birthday-cake"></i>  {{user?.birth| date: 'dd/MM/yyyy'}}
+        </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    2 days ago
+  </div>
+</div>
+<br><br>
+<div class="row ">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-grid gap-2">
+    <button type="button" class="btn btn-primary  btn-lg botones mb-3" [routerLink]="'/happydeal/newbusiness'" routerLinkActive="active"><i class="fas fa-plus"></i><i class="fas fa-store"></i> Registrar nuevo negocio</button>
+  </div>
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-grid gap-2">
+    <button type="button" class="btn btn-primary  btn-lg botones" [routerLink]="'/happydeal/viewmybusiness'" routerLinkActive="active"><i class="fas fa-eye"></i><i class="fas fa-store"></i> Ver mis negocios</button>
+  </div>
+</div>
+
+

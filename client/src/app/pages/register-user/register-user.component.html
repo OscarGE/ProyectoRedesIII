@@ -1,0 +1,151 @@
+<br><br><br>
+<div class="container h-100 mt-5">
+    <div class="row align-items-center h-100">
+        <div class="col d-flex justify-content-center">
+            <div class="card text-center" style="width: 60rem;">
+                <div class="card-body">
+                    <div class="encabezado">
+                        <h2>Crea una cuenta en </h2>
+                        <h2>HAPPY DEAL</h2>
+                    </div>
+                    <form [formGroup]="form" (ngSubmit)="senduser($event)">
+                    <br>
+                    <div class="mb-3 form-floating">
+                        <input type="email" class="form-control" name="email" formControlName="email" placeholder="e-mail">
+                        <label style="color: #AEB6BF">e-mail</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                        <div *ngIf="form.get('email')!.errors && form.get('email')!.touched || existeEmail">
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('required')">
+                            <i class="fas fa-times-circle"></i> Este campo es requerido
+                        </p>
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('pattern')">
+                            <i class="fas fa-times-circle"></i> Este campo no acepta espacios
+                        </p>
+                        <p class="msjErr" *ngIf="form.get('email')!.hasError('email')">
+                            <i class="fas fa-times-circle"></i> No es un email valido
+                        </p>
+                        <p class="msjErr" *ngIf="existeEmail">
+                         <i class="fas fa-times-circle"></i> Éste correo ya está siendo utilizado
+                        </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="mb-3 form-floating">
+                                <input type="password" class="form-control" name="password" formControlName="password"
+                                placeholder="Contraseña">
+                                <label style="color: #AEB6BF">Contraseña</label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('password')!.errors && form.get('password')!.touched">
+                                <p class="msjErr" *ngIf="form.get('password')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                <p class="msjErr" *ngIf="form.get('password')!.hasError('pattern')">
+                                    <i class="fas fa-times-circle"></i> Este campo no acepta espacios
+                                </p>
+                                </div>
+                            </div>        
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="mb-3 form-floating">
+                                <input type="password" class="form-control" name="pass_conf" formControlName="pass_conf"
+                                placeholder="Confirma la contraseña">
+                                <label style="color: #AEB6BF">Confirma la contraseña</label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('pass_conf')!.errors && form.get('pass_conf')!.touched || match">
+                                <p class="msjErr" *ngIf="form.get('pass_conf')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                <p class="msjErr" *ngIf="match">
+                                <i class="fas fa-times-circle"></i> Las contraseñas no coinciden
+                                </p>
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="form-control" name="name" formControlName="name"
+                                placeholder="Nombre">
+                                <label style="color: #AEB6BF">Nombre</label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('name')!.errors && form.get('name')!.touched">
+                                <p class="msjErr" *ngIf="form.get('name')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="form-control" name="second_name" formControlName="second_name"
+                                placeholder="Primer apellido ">
+                                <label style="color: #AEB6BF">Primer apellido </label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('second_name')!.errors && form.get('second_name')!.touched">
+                                <p class="msjErr" *ngIf="form.get('second_name')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="form-control" name="third_name" formControlName="third_name"
+                                placeholder="Segundo apellido">
+                                <label style="color: #AEB6BF">Segundo apellido</label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('third_name')!.errors && form.get('third_name')!.touched">
+                                <p class="msjErr" *ngIf="form.get('third_name')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="mb-3 form-floating">
+                                <input type="date" class="form-control" name="birth" formControlName="birth"
+                                placeholder="Fecha de nacimiento" onfocus="(this.type='date')"  min="1900-01-01" max={{today}}>
+                                <label style="color: #AEB6BF">Fecha de nacimiento</label>
+                                <!-- Directiva para mostrar mensajes reactivos -->
+                                <div *ngIf="form.get('birth')!.errors && form.get('birth')!.touched">
+                                <p class="msjErr" *ngIf="form.get('birth')!.hasError('required')">
+                                    <i class="fas fa-times-circle"></i> Este campo es requerido
+                                </p>
+                                </div>
+                            </div> 
+                        </div>
+                        <!-- previsualización de imagen de perfil -->
+                        <div class="col-sm-12 col-md-12 col-lg-3" *ngIf="previsualizacion; else imagenDefault">
+                        <div class="me-3 d-md-flex justify-content-md-end">
+                        <label for="inputfile"><img [src]="previsualizacion" class="perfil"></label>
+                        </div>        
+                        </div>
+                        <ng-template #imagenDefault>
+                        <div class="col-sm-12 col-md-12 col-lg-3">
+                            <div class="me-3 d-md-flex justify-content-md-end">
+                            <label for="inputfile"><img src="../../../assets/images/default-user-image.png" class="perfil" ></label>
+                            </div>        
+                        </div>
+                        </ng-template>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <div class="mb-3">
+                                <input id="inputfile" type="file" accept="image/*" class="form-control fileinput" name="photo" formControlName="photo" (change)="capturarFile($event)">
+                            </div>        
+                        </div>
+                    </div>
+                    <div *ngIf="msjErr != '' ">
+                        <p class="msjErr2"><i class="fas fa-times-circle"></i> {{ msjErr }}</p>
+                    </div>
+                    <input type="submit" [disabled]="form.invalid || !(!match && !existeEmail)"  class="btn btn-primary btn-lg"value="Crear cuenta">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

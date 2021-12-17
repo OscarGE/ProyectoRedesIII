@@ -1,4 +1,5 @@
 import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import pool from '../database';
 
@@ -14,8 +15,7 @@ class UserController {
   //Se ejecuta la query para mostrar un usuario por su id
   public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    await pool.query('SELECT * FROM users WHERE id = ?', [id], function (err, result, fields) {
-      console.log('SELECT * FROM users WHERE id = ?', [id]);
+    await pool.query('SELECT * FROM users INNER JOIN users_info on id = id_user WHERE id = ?', [id], function (err, result, fields) {
       if (err) throw err;
       if (result.length > 0) {
         return res.json(result[0]);
@@ -26,9 +26,18 @@ class UserController {
   //Se ejecuta la query para registrar un usuario
   public async register(req: Request, res: Response): Promise<void> {
     req.body.password	= await bcryptjs.hash(req.body.password	, 8); //Encriptando la contraseña
-    await pool.query('INSERT INTO users set ?', [req.body], function(err, result, fields) {
+    if(req.body.urlimg==undefined){
+      req.body.urlimg=""
+    }
+    await pool.query('INSERT INTO users (email,password) VALUES ("'+req.body.email+'","'+req.body.password+'");',async function(err, result, fields) {
       if (err) throw err;
-      res.json({ message: 'Usario registrado', id: result.insertId });
+      await pool.query('INSERT INTO users_info (id_user,name,second_name,third_name,birth,urlimg) VALUES ("'+result.insertId+'","'+req.body.name+'","'+req.body.second_name+'","'+req.body.third_name+'","'+req.body.birth+'","'+req.body.urlimg+'");',async function(err, result, fields) {
+        if (err) throw err;
+        await pool.query('SELECT * FROM users WHERE email = ? ', [req.body.email],async function (err, result, fields) {
+        return res.json(result[0]);
+        });
+      });
+      
     });
     
   }
@@ -74,7 +83,7 @@ class UserController {
       if (err) throw err;
       if (result.length == 1) {
         if(bcryptjs.compareSync(req.body.password, result[0].password) ){
-          return res.json(result[0]);
+            return res.json(result[0]);
         }else {
           res.status(404).json({message: 'La contraseña no coincide'});
         }

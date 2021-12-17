@@ -1,0 +1,98 @@
+<div class="row mx-0">
+  <div class="col-sm-12 col-md-12 col-lg-3 text-center">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-9">
+    <div class="card">
+      <div class="card-header tituloCard" id='formUsr'>{{business?.name}}
+      </div> 
+      <div class="cardd-body"> 
+        <div class="container">
+              <div class="card-body">
+                <div *ngIf="business?.img_business==''; else imagenbusinessDefault" >
+                    <img src="../../../assets/images/default-business-image.jpg" class="img-fluid img-thumbnail float-end">
+                </div>
+                <ng-template #imagenbusinessDefault>
+                    <img [src]="business?.img_business" class="img-fluid img-thumbnail float-end">
+                </ng-template> 
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                    <p class="separador text-center">Descripción</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    <p class="contenido2 text-left">{{business?.description}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                    <p class="separador text-center">Ubicación</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    <div class="contenido2 text-left">
+                      {{business?.address}}
+                      <div class="ratio ratio-21x9 mb-2">
+                      <agm-map  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude">
+
+                        </agm-marker>
+                      </agm-map></div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                    <p class="separador text-center">Contactos</p>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-4" *ngFor="let type of typeList; let i=index;">
+                        <div class="card contenido2">
+                          <div class="card-body">
+                            <h5 class="card-title">{{type}}</h5> <hr>
+                            <p class="card-text">{{contactList[i]}}</p>
+                          </div>
+                        </div>                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                  <p class="separador text-center">Fecha de registro</p>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                  <p class="contenido2 text-left"> {{business?.registered_at | date: 'dd/MM/yyyy'}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                  <p class="separador text-center">Propietario</p>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                  <div class="contenido2 text-left"> 
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-2">
+                        <div *ngIf="business?.img_user==''; else imagenDefault" >
+                            <img src="../../../assets/images/default-user-image.png" class="img-fluid perfil me-0">
+                        </div>
+                        <ng-template #imagenDefault>
+                            <img [src]="business?.img_user" class="img-fluid perfil me-0">
+                        </ng-template> 
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+                        <p class="fullname">{{business?.name_user}} {{business?.second_name}} {{business?.third_name}}</p> <hr>
+                        <p class="email">{{business?.email}}</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+

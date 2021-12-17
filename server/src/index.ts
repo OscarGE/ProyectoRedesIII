@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 // import path from 'path';
 import usersRoutes from './routes/usersRoutes';
+import businessRoutes from './routes/businessRoutes';
 
 class MyServer{
   public app: Application; //Se define el servidor en la variable app
@@ -23,6 +24,7 @@ class MyServer{
   routes(): void{
     // this.app.use('/api',indexRoutes)
     this.app.use('/api/users',usersRoutes) //ruta para trabajar con la tabla usrs de la base de datos
+    this.app.use('/api/business',businessRoutes) //ruta para trabajar con la tabla business de la base de datos
   }
   start(): void{ //El servidor se pone a la escucha
     this.app.listen(this.app.get('port'), ()=> {

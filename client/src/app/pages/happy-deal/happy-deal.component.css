@@ -1,0 +1,14 @@
+ .perfil{
+      width:70px;
+      height:70px;
+      border-radius:160px;
+      object-fit: cover;
+      border:1px solid #666;
+      user-select: none;
+  }
+  .pName{
+      margin: 0px;
+      padding: 0px;
+      text-align: left;
+      font-size: 14px;
+  }

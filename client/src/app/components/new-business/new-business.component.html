@@ -1,0 +1,150 @@
+<div class="row mx-0">
+  <div class="col-sm-12 col-md-12 col-lg-3 text-center">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-9">
+    <div class="card text-center">
+      <div class="card-header tituloCard" id='formUsr'><i class="fas fa-plus"></i><i class="fas fa-store"></i> Registrar nuevo negocio</div> 
+      <div class="cardd-body"> 
+        <div class="container">
+          <p class="separador text-center">Formulario de registro</p>
+              <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="sendbusiness($event)">
+                  <div class="mb-2 form-floating">
+                      <input type="text" class="form-control" placeholder="propietario" [value]="fullname" readonly>
+                      <label style="color: #AEB6BF">Propietario</label>
+                  </div>
+                  <div class="mb-2 form-floating">
+                      <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre del proveedor">
+                      <label style="color: #AEB6BF">Nombre del negocio</label>
+                      <!-- Directiva para mostrar mensajes reactivos -->
+                      <div *ngIf="form.get('name')!.errors && form.get('name')!.touched || existeName">
+                      <p class="msjErr" *ngIf="form.get('name')!.hasError('required')">
+                          <i class="fas fa-times-circle"></i> Éste campo es requerido
+                      </p>
+                      <p class="msjErr" *ngIf="existeName">
+                        <i class="fas fa-times-circle"></i> Éste nombre ya está siendo usado
+                      </p>
+                      </div>
+                  </div>
+                  <div class="mb-2 form-floating">
+                    <textarea class="form-control" placeholder="Descripción" name="description" formControlName="description"></textarea>
+                    <label style="color: #AEB6BF">Descripción</label>
+                    <!-- Directiva para mostrar mensajes reactivos -->
+                    <div *ngIf="form.get('description')!.errors && form.get('description')!.touched">
+                    <p class="msjErr" *ngIf="form.get('description')!.hasError('required')">
+                      <i class="fas fa-times-circle"></i> Este campo es requerido
+                    </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                      <div class="mb-2 form-floating">
+                        <select
+                          class="form-select form-control " name="id_category" formControlName="id_category">
+                          <option *ngFor="let category of categoriesList; let i=index;" [value]="categoriesIdList[i]">
+                          {{category}}
+                          </option>
+                        </select>
+                        <label style="color: #AEB6BF">Categoría</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                        <div *ngIf="form.get('id_category')!.errors && form.get('id_category')!.touched">
+                          <p class="msjErr" *ngIf="form.get('id_category')!.hasError('required')">
+                            <i class="fas fa-times-circle"></i> Este campo es requerido
+                          </p>
+                        </div>                                        
+                      </div>
+                    </div>  
+                    <div class="col-sm-12 col-md-12 col-lg-5 mb-2 d-md-flex justify-content-md-end">
+                      <!-- previsualización de imagen de perfil -->
+                        <div class="col-sm-12 col-md-12 col-lg-3" *ngIf="previsualizacion; else imagenDefault">
+                        <div class="me-3 d-md-flex justify-content-md-end">
+                        <label for="inputfile"><img [src]="previsualizacion" class="perfil"></label>
+                        </div>        
+                        </div>
+                        <ng-template #imagenDefault>
+                        <div class="col-sm-12 col-md-12 col-lg-3">
+                            <div class="me-3 d-md-flex justify-content-md-end">
+                            <label for="inputfile"><img src="../../../assets/images/default-business-image.jpg" class="perfil" ></label>
+                            </div>        
+                        </div>
+                        </ng-template>
+                         <input id="inputfile" type="file" accept="image/*" class="form-control fileinput" name="photo" formControlName="photo" (change)="capturarFile($event)">
+                    </div> 
+                  </div>
+                  
+                  <p class="separador2 text-center"><i class="fas fa-map-marker-alt"></i> Ubicación del negocio</p>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                      <div class="mb-2 form-floating">
+                        <input  class="form-control" name="address" formControlName="address" ngx-google-places-autocomplete [options]="options"  #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" class="form-control" placeholder="Dirección del negocio">
+                        <label style="color: #AEB6BF">Dirección del negocio</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                        <div *ngIf="form.get('address')!.errors && form.get('address')!.touched">
+                          <p class="msjErr" *ngIf="form.get('address')!.hasError('required')">
+                            <i class="fas fa-times-circle"></i> Este campo es requerido
+                          </p>
+                        </div> 
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                      <div class="ratio ratio-21x9 mb-2">
+                      <agm-map  [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude">
+
+                        </agm-marker>
+                      </agm-map></div>
+                    </div>
+                  </div>
+        
+                  <p class="separador2 text-center"><i class="fas fa-address-book"></i> Lista de contactos</p>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-3 mb-2" *ngFor="let contact of contactList; let i=index;">
+                      <div class="card ">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6 d-md-flex justify-content-md-star">
+                              <h5 class="card-title">{{typeList[i]}}</h5>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-danger" on-click="deleteContact(i)"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                          </div>
+                          <p class="card-text">{{contactList[i]}}</p>
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                      <div class="mb-2 form-floating">
+                        <select
+                          #type class="form-select form-control " name="type" formControlName="type">
+                          <option *ngFor="let typeContact of typeContactList;" [value]="typeContact">
+                          {{typeContact}}
+                          </option>
+                        </select>
+                        <label style="color: #AEB6BF">Tipo de contacto</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->                                     
+                      </div> 
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                      <div class="mb-2 form-floating">
+                        <input #contact type="text" class="form-control" name="contact" formControlName="contact" placeholder="Contacto">
+                        <label style="color: #AEB6BF">Contacto</label>
+                        <!-- Directiva para mostrar mensajes reactivos -->
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-3">
+                      <button type="button" [disabled]="!canAddContact" class="btn btn-warning btn-lg d-grid justify-content-md-start" on-click="addContact()">Añadir contacto</button>
+                    </div>
+                  </div>  
+                  <br>
+                  <input type="submit" [disabled]="form.invalid || existeName"  class="btn btn-success btn-lg" value="Registrar">
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

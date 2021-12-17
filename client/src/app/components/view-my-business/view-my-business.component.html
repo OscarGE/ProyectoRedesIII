@@ -1,0 +1,96 @@
+<div class="row mx-0">
+  <div class="col-sm-12 col-md-12 col-lg-3 text-center">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-9">
+    <div class="card text-center">
+      <div class="card-header tituloCard" id='formUsr'><i class="fas fa-eye"></i><i class="fas fa-store"></i> Ver mis negocios</div> 
+      <div class="cardd-body"> 
+        <div class="container">
+          <p class="separador text-center">Lista de negocios</p>
+          <div *ngIf="businessList==null">
+            <h2>Aún no tienes ningún negocio registrado</h2>
+          </div>
+              <div class="card-body">
+                <div class="card mb-4" *ngFor="let business of businessList; let i=index;">
+                  <div class="card-header" style="background-color: #ffffff;">
+                    <div class="row">
+                      <div class="col-2 col-sm-2 col-md-2 col-lg-2 text-left me-0">
+                        <table style="height: 60px;">
+                            <tbody>
+                              <tr>
+                                <td class="align-middle">
+                                  <div *ngIf="business.img_user==''; else imagenDefault" >
+                                      <img src="../../../assets/images/default-user-image.png" class="img-fluid perfil me-0">
+                                  </div>
+                                  <ng-template #imagenDefault>
+                                      <img [src]="business.img_user" class="img-fluid perfil me-0">
+                                  </ng-template>                  
+                                </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-md-flex justify-content-md-left ms-0">
+                        <table style="height: 60px;">
+                            <tbody>
+                              <tr>
+                                <td class="align-middle ms-0 fullname">{{business.name_user}} {{business.second_name}} {{business.third_name}} </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="col-4 col-sm-4 col-md-4 col-lg-4 d-md-flex justify-content-md-end">
+                        <table style="height: 60px;">
+                            <tbody>
+                              <tr>
+                                <td class="align-middle">{{business.email}} </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body mt-1 mb-1 p-0">
+                    <div class="row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center">
+                          <div *ngIf="business.img_business==''; else imagenbusinessDefault" >
+                              <img src="../../../assets/images/default-business-image.jpg" class="img-fluid img-thumbnail ">
+                          </div>
+                          <ng-template #imagenbusinessDefault>
+                              <img [src]="business.img_business" class="img-fluid img-thumbnail ">
+                          </ng-template> 
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-7 text-left">
+                          <table class="table text-left">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="name">{{business.name}}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row" class="description">{{business.description}}</th>
+                              </tr>
+                              <tr class="text-center">
+                                <th scope="row" ><label class="category"><i class="fas fa-tag"></i> {{business.category}}</label></th>
+                              </tr>
+                              <tr class="text-end">
+                                <th scope="row" class="registered">{{business.registered_at | date: 'dd/MM/yyyy'}}</th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-end" style="background-color: #ffffff;">
+                    <button type="button" class="btn btn-danger btn-sm botones ms-3" [routerLink]="'../viewthebusiness/'+business.id_business" routerLinkActive="active"><i class="fas fa-eye"></i> Ver</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
